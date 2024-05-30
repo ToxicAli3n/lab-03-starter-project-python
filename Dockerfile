@@ -8,10 +8,10 @@ RUN . ./.venv/bin/activate
 
 COPY ./requirements/backend.in /app/requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-COPY . /app
+COPY build build
 
-EXPOSE 8080
+COPY spaceship spaceship
 
 CMD ["uvicorn", "spaceship.main:app", "--host=0.0.0.0", "--port=8080"]
