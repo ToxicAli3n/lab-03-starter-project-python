@@ -4,14 +4,10 @@ WORKDIR /app
 
 RUN python -m venv ./.venv
 
-RUN . ./.venv/bin/activate
-
 COPY ./requirements/backend.in /app/requirements.txt
 
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN ./.venv/bin/pip install --upgrade pip && ./.venv/bin/pip install -r requirements.txt
 
-COPY build build
+COPY . .
 
-COPY spaceship spaceship
-
-CMD ["uvicorn", "spaceship.main:app", "--host=0.0.0.0", "--port=8080"]
+CMD [".venv/bin/uvicorn", "spaceship.main:app", "--host=0.0.0.0", "--port=8080"]
